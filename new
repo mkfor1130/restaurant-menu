@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savory Bistro | Fine Dining Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8f5f0;
+            color: #3a3226;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(58, 50, 38, 0.7), rgba(58, 50, 38, 0.7)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+        }
+        
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #d4a762;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .menu-category {
+            scroll-margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mr-3">
+                    <i class="fas fa-utensils text-amber-700 text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-amber-800">Savory Bistro</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-amber-900 hover:text-amber-700">Home</a>
+                <a href="#menu" class="nav-link text-amber-900 hover:text-amber-700">Menu</a>
+                <a href="#about" class="nav-link text-amber-900 hover:text-amber-700">About Us</a>
+                <a href="#contact" class="nav-link text-amber-900 hover:text-amber-700">Contact</a>
+            </nav>
+            <button class="md:hidden text-amber-900" id="mobile-menu-button">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white w-full py-4 px-4 shadow-lg" id="mobile-menu">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="nav-link text-amber-900 hover:text-amber-700">Home</a>
+                <a href="#menu" class="nav-link text-amber-900 hover:text-amber-700">Menu</a>
+                <a href="#about" class="nav-link text-amber-900 hover:text-amber-700">About Us</a>
+                <a href="#contact" class="nav-link text-amber-900 hover:text-amber-700">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero flex items-center justify-center text-center text-white section">
+        <div class="container mx-auto px-4 py-20">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Savory Bistro</h1>
+            <p class="text-xl md:text-2xl mb-8">Experience culinary excellence in the heart of the city</p>
+            <a href="#menu" class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-medium transition duration-300 inline-block">
+                View Our Menu
+            </a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-amber-900">Our Menu</h2>
+            
+            <!-- Menu Navigation -->
+            <div class="flex overflow-x-auto pb-4 mb-8 scrollbar-hide">
+                <div class="flex space-x-2 mx-auto">
+                    <a href="#appetizers" class="whitespace-nowrap px-4 py-2 bg-amber-100 text-amber-800 rounded-full hover:bg-amber-200 transition">Appetizers</a>
+                    <a href="#mains" class="whitespace-nowrap px-4 py-2 bg-amber-100 text-amber-800 rounded-full hover:bg-amber-200 transition">Main Courses</a>
+                    <a href="#desserts" class="whitespace-nowrap px-4 py-2 bg-amber-100 text-amber-800 rounded-full hover:bg-amber-200 transition">Desserts</a>
+                    <a href="#drinks" class="whitespace-nowrap px-4 py-2 bg-amber-100 text-amber-800 rounded-full hover:bg-amber-200 transition">Drinks</a>
+                </div>
+            </div>
+            
+            <!-- Appetizers -->
+            <div id="appetizers" class="menu-category section mb-16">
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-amber-800 border-b border-amber-200 pb-2">Appetizers</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Item 1 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Bruschetta" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Bruschetta</h4>
+                                <span class="text-lg font-medium text-amber-700">$9.50</span>
+                            </div>
+                            <p class="text-gray-600">Toasted bread topped with tomatoes, garlic, fresh basil, and olive oil</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Calamari" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Crispy Calamari</h4>
+                                <span class="text-lg font-medium text-amber-700">$12.00</span>
+                            </div>
+                            <p class="text-gray-600">Lightly fried squid served with lemon aioli and marinara sauce</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1603105037880-880cd4edfb1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Caprese Salad" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Caprese Salad</h4>
+                                <span class="text-lg font-medium text-amber-700">$10.50</span>
+                            </div>
+                            <p class="text-gray-600">Fresh mozzarella, tomatoes, and sweet basil drizzled with balsamic glaze</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Courses -->
+            <div id="mains" class="menu-category section mb-16">
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-amber-800 border-b border-amber-200 pb-2">Main Courses</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Item 1 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" 
+                             alt="Filet Mignon" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Filet Mignon</h4>
+                                <span class="text-lg font-medium text-amber-700">$32.00</span>
+                            </div>
+                            <p class="text-gray-600">8oz tender beef filet with roasted garlic mashed potatoes and seasonal vegetables</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1371&q=80" 
+                             alt="Salmon" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Pan-Seared Salmon</h4>
+                                <span class="text-lg font-medium text-amber-700">$26.50</span>
+                            </div>
+                            <p class="text-gray-600">Atlantic salmon with lemon butter sauce, asparagus, and wild rice pilaf</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Pasta" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Truffle Pasta</h4>
+                                <span class="text-lg font-medium text-amber-700">$22.00</span>
+                            </div>
+                            <p class="text-gray-600">House-made fettuccine with wild mushrooms, truffle oil, and parmesan</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 4 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Chicken" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Herb-Roasted Chicken</h4>
+                                <span class="text-lg font-medium text-amber-700">$20.50</span>
+                            </div>
+                            <p class="text-gray-600">Free-range chicken with rosemary potatoes and honey-glazed carrots</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 5 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Risotto" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Mushroom Risotto</h4>
+                                <span class="text-lg font-medium text-amber-700">$19.00</span>
+                            </div>
+                            <p class="text-gray-600">Creamy arborio rice with wild mushrooms, white wine, and parmesan</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 6 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1565299624943-b5f419865b6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Pizza" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Truffle Pizza</h4>
+                                <span class="text-lg font-medium text-amber-700">$18.00</span>
+                            </div>
+                            <p class="text-gray-600">Wood-fired pizza with truffle cream, mozzarella, mushrooms, and arugula</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Desserts -->
+            <div id="desserts" class="menu-category section mb-16">
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-amber-800 border-b border-amber-200 pb-2">Desserts</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Item 1 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80" 
+                             alt="Chocolate Cake" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Chocolate Lava Cake</h4>
+                                <span class="text-lg font-medium text-amber-700">$9.00</span>
+                            </div>
+                            <p class="text-gray-600">Warm chocolate cake with a molten center, served with vanilla ice cream</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1558318511-1d3c3957d20a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Cheesecake" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">New York Cheesecake</h4>
+                                <span class="text-lg font-medium text-amber-700">$8.50</span>
+                            </div>
+                            <p class="text-gray-600">Classic creamy cheesecake with berry compote and whipped cream</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Tiramisu" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Tiramisu</h4>
+                                <span class="text-lg font-medium text-amber-700">$8.00</span>
+                            </div>
+                            <p class="text-gray-600">Layers of coffee-soaked ladyfingers and mascarpone cream</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Drinks -->
+            <div id="drinks" class="menu-category section">
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-amber-800 border-b border-amber-200 pb-2">Drinks</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Item 1 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Wine" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">House Wine Selection</h4>
+                                <span class="text-lg font-medium text-amber-700">$8-12</span>
+                            </div>
+                            <p class="text-gray-600">Ask your server about our rotating selection of red and white wines</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" 
+                             alt="Cocktail" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Signature Cocktails</h4>
+                                <span class="text-lg font-medium text-amber-700">$12-14</span>
+                            </div>
+                            <p class="text-gray-600">Try our seasonal craft cocktails made with premium spirits and fresh ingredients</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Coffee" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-amber-900">Artisan Coffee</h4>
+                                <span class="text-lg font-medium text-amber-700">$4-6</span>
+                            </div>
+                            <p class="text-gray-600">Locally roasted coffee prepared by our skilled baristas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-amber-50 section">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-amber-900">Our Story</h2>
+                    <p class="text-gray-700 mb-4">
+                        Founded in 2010, Savory Bistro began as a small family-owned restaurant with a passion for creating memorable dining experiences. 
+                        Our chef, with over 20 years of culinary expertise, crafts each dish with care using locally-sourced ingredients.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        We believe in the power of food to bring people together. Our warm, inviting atmosphere and attentive service 
+                        make every meal at Savory Bistro a special occasion.
+                    </p>
+                    <p class="text-gray-700">
+                        From our kitchen to your table, we're committed to excellence in every bite. Join us for an unforgettable 
+                        culinary journey through flavors that celebrate both tradition and innovation.
+                    </p>
+                </div>
+                <div class="lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                         alt="Restaurant interior" class="w-full rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-amber-900">Contact Us</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <div class="bg-amber-50 p-8 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-6 text-amber-800">Get in Touch</h3>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-map-marker-alt text-amber-600 mr-4 text-xl"></i>
+                                <p class="text-gray-700">123 Culinary Avenue, Food District, NY 10001</p>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-phone-alt text-amber-600 mr-4 text-xl"></i>
+                                <p class="text-gray-700">(212) 555-1234</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-amber-600 mr-4 text-xl"></i>
+                                <p class="text-gray-700">reservations@savorybistro.com</p>
+                            </div>
+                        </div>
+                        
+                        <h4 class="text-xl font-bold mb-4 text-amber-800">Hours of Operation</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex justify-between">
+                                <span>Monday - Thursday</span>
+                                <span>11:00 AM - 10:00 PM</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Friday - Saturday</span>
+                                <span>11:00 AM - 11:00 PM</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Sunday</span>
+                                <span>10:00 AM - 9:00 PM</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-amber-50 p-8 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-6 text-amber-800">Make a Reservation</h3>
+                        <form>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 mb-2">Name</label>
+                                    <input type="text" id="name" class="w-full px-4 py-2 border border-amber-200 rounded focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-700 mb-2">Email</label>
+                                    <input type="email" id="email" class="w-full px-4 py-2 border border-amber-200 rounded focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                </div>
+                                <div>
+                                    <label for="date" class="block text-gray-700 mb-2">Date</label>
+                                    <input type="date" id="date" class="w-full px-4 py-2 border border-amber-200 rounded focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                </div>
+                                <div>
+                                    <label for="time" class="block text-gray-700 mb-2">Time</label>
+                                    <input type="time" id="time" class="w-full px-4 py-2 border border-amber-200 rounded focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                </div>
+                                <div>
+                                    <label for="guests" class="block text-gray-700 mb-2">Number of Guests</label>
+                                    <select id="guests" class="w-full px-4 py-2 border border-amber-200 rounded focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                        <option>1 person</option>
+                                        <option>2 people</option>
+                                        <option>3 people</option>
+                                        <option>4 people</option>
+                                        <option>5+ people</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-gray-700 mb-2">Phone Number</label>
+                                    <input type="tel" id="phone" class="w-full px-4 py-2 border border-amber-200 rounded focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                </div>
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 mb-2">Special Requests</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 border border-amber-200 rounded focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 px-6 rounded font-medium transition duration-300">
+                                Book Table
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-amber-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-utensils text-amber-700"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">Savory Bistro</h2>
+                    </div>
+                    <p class="mt-2 text-amber-200">Fine dining at its best</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-amber-200 hover:text-white text-xl"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-amber-200 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-amber-200 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p>&copy; 2023 Savory Bistro. All rights reserved.</p>
+                    <div class="mt-2">
+                        <a href="#" class="text-amber-200 hover:text-white text-sm mr-4">Privacy Policy</a>
+                        <a href="#" class="text-amber-200 hover:text-white text-sm">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top bg-amber-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-amber-700">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Back to top button visibility
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        // Section animation on scroll
+        const sections = document.querySelectorAll('.section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
